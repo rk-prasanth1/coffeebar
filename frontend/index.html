@@ -1,25 +1,26 @@
-
-### Frontend Code
-
-**1. `frontend/index.html`**
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffee Bar</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
 </head>
 <body>
-  <header>
-    <h1>Welcome to the Coffee Bar!</h1>
-  </header>
-  <main>
-    <h2>Menu</h2>
-    <ul id="menu-list"></ul>
-  </main>
-  <script src="script.js"></script>
+    <h1>Welcome to the Coffee Shop</h1>
+    <div id="menu"></div>
+
+    <script>
+        fetch('/api/menu')
+            .then(response => response.json())
+            .then(menu => {
+                const menuDiv = document.getElementById('menu');
+                menu.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.textContent = `${item.name} - $${item.price}`;
+                    menuDiv.appendChild(menuItem);
+                });
+            });
+    </script>
 </body>
 </html>
+

@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coffeeshop-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: coffeeshop-backend
+  template:
+    metadata:
+      labels:
+        app: coffeeshop-backend
+    spec:
+      containers:
+      - name: backend
+        image: prasanthrk/coffeeshop-backend:v1
+        ports:
+        - containerPort: 9090
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coffeeshop-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: coffeeshop-frontend
+  template:
+    metadata:
+      labels:
+        app: coffeeshop-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: prasanthrk/coffeeshop-frontend:v1
+        ports:
+        - containerPort: 80
+---
