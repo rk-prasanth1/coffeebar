@@ -16,8 +16,15 @@ spec:
       containers:
       - name: backend
         image: prasanthrk/coffeeshop-backend:v1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt
         ports:
         - containerPort: 9090
+      volumes:
+      - name: config-volume
+        configMap:
+         name: coffee-configmap
 ---
 ---
 apiVersion: apps/v1
@@ -37,6 +44,14 @@ spec:
       containers:
       - name: frontend
         image: prasanthrk/coffeeshop-frontend:v1
+        volumeMounts:
+        - name: secret-volume
+          mountPath: /opt
         ports:
         - containerPort: 80
+
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: secret-basic-auth
 ---
